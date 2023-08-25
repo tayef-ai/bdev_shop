@@ -1,0 +1,43 @@
+{% extends 'ecomapp/base.html' %}
+{% block content %}
+<div class="container text-center shadow mt-5 mb-3" id="service">
+    {% if categories %}
+    <h2 class="pt-5 pb-1">Categories</h2>
+    <div class="row mt-2 mx-1">
+        {% for lp in categories %}
+        <div class="col-sm-2 my-2 pt-2 shadow-sm">
+            <img src="{{lp.image.url}}" alt=""  class="img-fluid img-thumbnail myimage">
+            <h6 class="mt-2"><a href="{% url 'catproducts' lp.id %}">{{lp.categoryname}}</a></h6>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if products %}
+    <h2 class="pt-5 pb-1">Products</h2>
+    <div class="row mt-2 mx-1">
+        <div>
+        <form action="{% url 'latest' %}" method="GET">
+            Sort By Price: 
+            <input type="hidden" name="category" value="{{catid}}">
+            <input type="submit" value="Low to High" name="l2h" class="d-inline">
+            <input type="submit" value="High to Low" name="h2l">
+        </form>
+        </div>
+        {% for lp in products %}
+        <div class="col-sm-2 my-2 pt-2 shadow-sm">
+            <img src="{{lp.image.url}}" alt=""  class="img-fluid img-thumbnail myimage">
+            <h6 class="mt-2"><a href="{% url 'productdetail' lp.id %}">{{lp.title}}</a></h6>
+            {% if lp.discounted_price %}
+                <p>Price: <del>{{lp.selling_price}}</del> Tk. {{lp.discounted_price}}</p>
+            {% else %}
+                <p>Price: Tk. {{lp.selling_price}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if not categories and not products %}
+    <h2 class="pt-5 pb-1">No data found</h2>
+    {% endif %}
+</div>
+{% endblock content %}

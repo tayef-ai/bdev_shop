@@ -1,0 +1,34 @@
+{% extends 'ecomapp/base.html' %}
+{% block content %}
+<div class="container pt-5">
+    <h2 class="text-center mt-5 mb-4">Contact Us</h2>
+    <div class="row  mb-3">
+        <div class="col-md-6 shadow py-3 px-3">
+            {% if messages %}
+            {% for message in messages %}
+            <p {% if message.tags %} class="alert alert-{{message.tags}} mb-3" {% endif %}>{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {% for fm in form %}
+                {{fm.label}}
+                <p>{{fm}}</p>
+                {% endfor %}
+                <br>
+                <input class="btn mybtn" type="submit" value="Send" /><br /><br />
+            </form>
+        </div>
+        <div class="col-md-5 text-center offset-1">
+            <h6 class="fw-bold">Headquarter</h6>
+            <p class="my-0">5693/A, Nuruzzaman Nazir Bari Road, Chandgaon, Chattogram</p>
+            <p class="my-0">Mobile: +8801712635374</p>
+            <p class="mb-2"><a href="#">www.bdevshop.com</a></p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d17548.933178283696!2d91.8593482456227!3d22.383486570198354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjLCsDIyJzQwLjAiTiA5McKwNTEnMzIuMSJF!5e0!3m2!1sen!2sbd!4v1692030125727!5m2!1sen!2sbd"
+                width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+{% endblock content %}

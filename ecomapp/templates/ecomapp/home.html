@@ -1,0 +1,94 @@
+{% extends 'ecomapp/base.html' %}
+{% load static %}
+{% block content %}
+{% comment %} <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="2000">
+            <img src="{% static 'ecomapp/images/pexels-andrea-piacquadio-3769747.jpg' %}" class="d-block w-100 h-50" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="{% static 'ecomapp/images/pexels-karolina-grabowska-5632402.jpg' %}" class="d-block w-100 h-50" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'ecomapp/images/pexels-pixabay-50987.jpg' %}" class="d-block w-100 h-50" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div> {% endcomment %}
+<header class="mt-5">
+    <div>
+        <img src="{% static 'ecomapp/images/pexels-karolina-grabowska-5632402.jpg' %}" class="d-block w-100" style="height:500px" alt="...">
+        <div class="carousel-caption st">
+        <h1 class="text-uppercase fw-bold">Welcome to BDevShop</h1>
+        <h5 class="fst-italic fw-bold mb-5">Shop with us...</h5>
+        </div>
+    </div>
+  </header>
+  <!--Start Category-->
+  <div class="container text-center shadow mt-3" id="service">
+    <h2 class="pt-4 pb-1">Categories</h2>
+    <div class="row mt-2 mb-1">
+        {% for lp in categories %}
+        <div class="col-sm-2 my-2 pt-2 shadow-sm">
+            <img src="{{lp.image.url}}" alt=""  class="img-fluid img-thumbnail myimage">
+            <h6 class="mt-2"><a href="{% url 'catproducts' lp.id %}">{{lp.categoryname}}</a></h6>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-end">
+        <a href="{% url 'category' %}" class="btn mybtn btn-sm my-3">Show All</a>
+    </div>
+</div>
+  <!--End Category-->
+<!--Latest Products-->
+<div class="container text-center shadow mt-3" id="service">
+    <h2 class="pt-4 pb-1">Latest Products</h2>
+    <div class="row mt-2 mb-1">
+        {% for lp in latest_product %}
+        <div class="col-sm-2 my-2 pt-2 shadow-sm">
+            <img src="{{lp.image.url}}" alt=""  class="img-fluid img-thumbnail myimage">
+            <h6 class="mt-2"><a href="{% url 'productdetail' lp.id %}">{{lp.title}}</a></h6>
+            {% if lp.discounted_price %}
+                <p>Price: <del>{{lp.selling_price}}</del> Tk. {{lp.discounted_price}}</p>
+            {% else %}
+                <p>Price: Tk. {{lp.selling_price}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-end">
+        <a href="{% url 'latest' %}" class="btn mybtn btn-sm my-3">Show All</a>
+    </div>
+</div>
+<!--End Latest Products-->
+<!--Popular Products-->
+<div class="container text-center shadow mt-3 mb-3" id="service">
+    <h2 class="pt-4 pb-1">Popular Products</h2>
+    <div class="row mt-2 mb-1">
+        {% for pp in popular_product %}
+        <div class="col-sm-2 my-2 pt-2 shadow-sm">
+            <img src="{{pp.image.url}}" alt="" class="img-fluid img-thumbnail myimage">
+            <h6 class="mt-2"><a href="{% url 'productdetail' pp.id %}">{{pp.title}}</a></h6>
+            {% if lp.discounted_price %}
+                <p>Price: <del>{{pp.selling_price}}</del> Tk. {{lp.discounted_price}}</p>
+            {% else %}
+                <p>Price: Tk. {{pp.selling_price}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-end">
+        <a href="{% url 'popular' %}" class="btn mybtn btn-sm my-3">Show All</a>
+    </div>
+</div>
+<!--End Popular Products-->
+{% endblock content %}

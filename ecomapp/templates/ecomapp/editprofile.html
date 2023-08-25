@@ -1,0 +1,47 @@
+{% extends 'ecomapp/base.html' %}
+{% block content %}
+<div class="container mt-5 pt-5 mb-3">
+    <div class="container shadow py-3 col-sm-6 offset-sm-3">
+        <h2 class="text-center">Edit Profile</h2>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-3" {% endif %}>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            {% comment %} {% for fm in form %} {% endcomment %}
+            <div class="form-group mb-3">
+                {{form.username.label_tag}}
+                {{form.username}}
+                <small class="text-danger">{{form.username.errors|striptags}}</small>
+            </div>
+            <div class="form-group mb-3">
+                {{form.first_name.label_tag}}
+                {{form.first_name}}
+                <small class="text-danger">{{form.first_name.errors|striptags}}</small>
+            </div>
+            <div class="form-group mb-3">
+                {{form.last_name.label_tag}}
+                {{form.last_name}}
+                <small class="text-danger">{{form.last_name.errors|striptags}}</small>
+            </div>
+            <div class="form-group mb-3">
+                {{form.email.label_tag}}
+                {{form.email}}
+                <small class="text-danger">{{form.email.errors|striptags}}</small>
+            </div>
+            {% comment %} {% endfor %} {% endcomment %}
+            <input type="submit" class="btn mybtn" value="Save">
+            <div class="text-center">
+                <a href="{% url 'seeprofile' %}">Back to Profile</a>
+            </div>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-2">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock content %}

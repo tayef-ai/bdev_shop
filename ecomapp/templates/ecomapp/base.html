@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}BDevShop{% endblock title %}</title>
+        <link rel="icon" href="{% static 'ecomapp/images/pexels-karolina-grabowska-5632402.jpg' %}" type="image/icon">
+        <link rel="stylesheet" href="{% static 'ecomapp/css/bootstrap.min.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,400&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+            integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+            crossorigin="anonymous" />
+        <link rel="stylesheet" href="{% static 'ecomapp/css/style.css' %}">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a href="{% url 'home' %}"><img src="{% static 'ecomapp/images/pexels-karolina-grabowska-5632402.jpg' %}" height="50px" width="50px" alt="" class="ms-5 me-1" style="margin-top: 0px; border-radius: 50%;"></a>
+                <a class="navbar-brand" href="{% url 'home' %}">BDevShop</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mb-2 mb-lg-0 ps-5">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'latest' %}">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'category' %}">Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'aboutus' %}">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mb-2 ps-5 mb-lg-0 ms-auto pe-5">
+                        <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
+                            {% csrf_token %}
+                            <input class="form-control" style="border-radius: 0%;" type="search" placeholder="Search"
+                                aria-label="Search" name="query" required>
+                            <input class="btn mybtn me-5" style="border-color: white; border-radius: 0%;" type="submit"
+                                value="Search">
+                        </form>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{request.user.username}}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'seeprofile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'showcart' %}">Cart <span
+                                    class="badge bg-warning">{{ cart_count }}</span></a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Registration</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock content %}
+        <!--Start Footer-->
+        <footer class="container-fluid bg-dark text-white">
+            <div class="container">
+                <div class="row py-3">
+                    <div class="col-md-6">
+                        <span>Follow Us</span>
+                        <a href="#" class="ps-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="ps-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="ps-3"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <small>Developed By: <a href="#">Tayef</a></small> &copy; 2023
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--End Footer-->
+        <script src="{% static 'ecomapp/js/jquery.js' %}"></script>
+        <script src="{% static 'ecomapp/js/popper.js' %}"></script>
+        <script src="{% static 'ecomapp/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'ecomapp/js/myscript.js' %}"></script>
+    </body>
+
+</html>

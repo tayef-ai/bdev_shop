@@ -1,0 +1,32 @@
+{% extends 'ecomapp/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row mb-3  mt-5 pt-5">
+        <div class="col-sm-7">
+            <img src="{{product.image.url}}" class="img-fluid img-thumbnail" alt="">
+        </div>
+        <div class="col-sm-5">
+            <h2 class="pt-5">{{product.title}}</h2>
+            {% if product.discounted_price %}
+                <p>Price: <del>{{product.selling_price}}</del> Tk. {{product.discounted_price}}</p>
+            {% else %}
+                <p>Price: Tk. {{product.selling_price}}</p>
+            {% endif %}
+            <p>{{product.description}}</p>
+            <p>Brand: {{product.brand}}</p>
+            <p>Category: {{product.category}}</p>
+            <!-- <p>{{product.id}}</p> -->
+            {% if item_already_in_cart %}
+                <p class="alert alert-info">This item is already available in the cart.</p>
+                <a href="{% url 'showcart' %}" class="btn mybtn">Go To Cart</a>
+            {% else %}
+            <form action="/add-to-cart" class="d-inline">
+                <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+                <input type="submit" class="btn mybtn" value="Add To Cart">
+            </form>
+            {% endif %}
+            <!-- <a href="{% url 'showcart' %}" class="btn btn-warning">Buy Now</a> -->
+        </div>
+    </div>
+</div>
+{% endblock content %}

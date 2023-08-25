@@ -1,0 +1,39 @@
+{% extends 'ecomapp/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5 pt-3">
+    <div class="row mt-5">
+     <div class="col-sm-6">
+       <h4>Order Summary</h4>
+       <hr>
+       {% for item in cartitems %}
+         <div class="card mb-2">
+           <div class="card-body">
+             <h5>Product: {{item.product.title}}</h5>
+             <p>Quantity: {{item.quantity}}</p>
+             <p class="fw-bold">Price: {{item.total_cost}}</p>
+           </div>
+         </div>
+         {% endfor %}
+         <p class="fw-bold">Total Cost + Shipping Charge (Tk. 70) = {{totalamount}} Tk.</p>
+     </div>
+     <div class="col-sm-4 offset-sm-1">
+       <h4>Shipping Address</h4>
+       <hr>
+       {% for ad in add %}
+         <div class="card">
+           <div class="card-body">
+           <h5>{{ad.user.username}}</h5>
+           <p>Address: {{ad.shipping_address}}</p>
+           <p>Phone: {{ad.phone}}</p>
+           </div>
+         </div>
+         {% endfor %}
+         <p class="mb-3" style="text-align: justify;"><small>***Terms and Conditions: Please provide correct shipping address and phone number to get reliable <span style="font-style: italic; color: red;">cash on delivery</span> of products.</small></p>
+           <div class="text-end">
+             <a href="{% url 'paymentdone' %}" class="btn mybtn mt-3 px-5 fw-bold">Continue</a>
+           </div>
+       </div>
+     </div>
+   </div>
+{% endblock content %}
